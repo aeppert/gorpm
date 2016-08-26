@@ -15,8 +15,8 @@ rpmdbMatchIterator rpmtsInitIterator_grapper(const rpmts ts, int rpmtag, const v
     return rpmtsInitIterator(ts, rpmtag, keyp, keylen);
 }
 */
+import "C"
 import (
-	"C"
 	"unicode/utf8"
 	"unsafe"
 )
