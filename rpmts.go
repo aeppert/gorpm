@@ -14,12 +14,14 @@ package rpm
 rpmdbMatchIterator rpmtsInitIterator_grapper(const rpmts ts, int rpmtag, const void * keyp, size_t keylen) {
     return rpmtsInitIterator(ts, rpmtag, keyp, keylen);
 }
+
+rpmdbMatchIterator rpmtsInitIterator_named__grapper(const rpmts ts, int rpmtag, char * keyp, size_t keylen) {
+    return rpmtsInitIterator(ts, rpmtag, (const void *)keyp, keylen);
+}
+
 */
 import "C"
-import (
-	"unicode/utf8"
-	"unsafe"
-)
+import "unicode/utf8"
 
 type RpmTs struct {
 	c_ts C.rpmts
@@ -51,7 +53,7 @@ func (ts *RpmTs) RpmTsInitIteratorSeq(tag RpmTag) *RpmDbMatchIterator {
 func (ts *RpmTs) RpmTsInitIteratorNamed(tag RpmTag, key string) *RpmDbMatchIterator {
 	if utf8.RuneCountInString(key) > 0 {
 		cstr := C.CString(key)
-		crdmi := C.rpmtsInitIterator_grapper(ts.c_ts, C.int(tag), unsafe.Pointer(&cstr), 0)
+		crdmi := C.rpmtsInitIterator_named__grapper(ts.c_ts, C.int(tag), cstr, 0)
 
 		if crdmi == nil {
 			return nil
