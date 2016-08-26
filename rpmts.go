@@ -15,7 +15,11 @@ rpmdbMatchIterator rpmtsInitIterator_grapper(const rpmts ts, int rpmtag, const v
     return rpmtsInitIterator(ts, rpmtag, keyp, keylen);
 }
 */
-import "C"
+import (
+	"C"
+	"unicode/utf8"
+	"unsafe"
+)
 
 type RpmTs struct {
 	c_ts C.rpmts
@@ -45,12 +49,16 @@ func (ts *RpmTs) RpmTsInitIteratorSeq(tag RpmTag) *RpmDbMatchIterator {
 
 // RpmTsInitIteratorNamed (rpmtsInitIterator in RPM) creates an interator over a transaction set
 func (ts *RpmTs) RpmTsInitIteratorNamed(tag RpmTag, key string) *RpmDbMatchIterator {
+	if utf8.RuneCountInString(key) > 0 {
+		cstr := C.CString(key)
+		crdmi := C.rpmtsInitIterator_grapper(ts.c_ts, C.int(tag), unsafe.Pointer(&cstr), 0)
 
-	crdmi := C.rpmtsInitIterator_grapper(ts.c_ts, C.int(tag), C.CString(key), 0)
+		if crdmi == nil {
+			return nil
+		}
 
-	if crdmi == nil {
-		return nil
+		return &RpmDbMatchIterator{c_rpmdbMatchIterator: crdmi}
 	}
 
-	return &RpmDbMatchIterator{c_rpmdbMatchIterator: crdmi}
+	return nil
 }
