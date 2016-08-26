@@ -14,6 +14,7 @@ import "C"
 type RpmTag int
 
 const (
+	RPMTAG_DBI_PACKAGES     = RpmTag(C.RPMDBI_PACKAGES)         // Hack to support enumeration of all packages
 	RPMTAG_NOT_FOUND        = RpmTag(C.RPMTAG_NOT_FOUND)        // unknown tag
 	RPMTAG_HEADERIMAGE      = RpmTag(C.RPMTAG_HEADERIMAGE)      // current image
 	RPMTAG_HEADERSIGNATURES = RpmTag(C.RPMTAG_HEADERSIGNATURES) // signatures
