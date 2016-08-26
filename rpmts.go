@@ -33,7 +33,7 @@ func (ts *RpmTs) Free() {
 
 // RpmTsInitIterator (rpmtsInitIterator in RPM) creates an interator over a transaction set
 func (ts *RpmTs) RpmTsInitIterator(tag RpmTag, key string) *RpmDbMatchIterator {
-	crdmi := C.rpmtsInitIterator_grapper(ts.c_ts, C.int(tag), C.CString(tkey), 0)
+	crdmi := C.rpmtsInitIterator_grapper(ts.c_ts, C.int(tag), C.CString(key), 0)
 	if crdmi == nil {
 		return nil
 	}
