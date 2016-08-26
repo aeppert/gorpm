@@ -27,5 +27,5 @@ func (ts *RpmTs) Free() {
 
 // RpmTsInitIterator (rpmtsInitIterator in RPM) creates an interator over a transaction set
 func (ts *RpmTs) RpmTsInitIterator(tag RpmTag) *RpmDbMatchIterator {
-	return C.rpmtsInitIterator(ts.c_ts, tag, nil, 0)
+	return C.rpmtsInitIterator(ts.c_ts, C.int(tag), nil, 0)
 }
