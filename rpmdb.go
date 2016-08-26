@@ -49,5 +49,5 @@ func RpmDbNextIterator(mi *RpmDbMatchIterator) *Header {
 
 // Free (rpmdbFreeIterator in C)
 func (mi *RpmDbMatchIterator) Free() int {
-	return C.rpmdbFreeIterator(mi.c_rpmdbMatchIterator)
+	return int(C.rpmdbFreeIterator(mi.c_rpmdbMatchIterator))
 }
