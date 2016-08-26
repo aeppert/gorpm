@@ -34,7 +34,7 @@ const (
 )
 
 type RpmDbMatchIterator struct {
-    c_rpmdbmi: C.rpmdbMatchIterator
+	c_Rpmdbmi C.rpmdbMatchIterator
 }
 
 // RpmDbNextIterator (rpmdbNextIterator in C)
@@ -43,6 +43,6 @@ func RpmDbNextIterator(mi *RpmDbMatchIterator) *Header {
 }
 
 // Free (rpmdbFreeIterator in C)
-func (mi *RpmDbMatchIterator) Free() {
+func (mi *RpmDbMatchIterator) Free() int {
 	return C.rpmdbFreeIterator(mi.c_rpmdbmi)
 }
