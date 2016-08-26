@@ -15,13 +15,17 @@ rpmdbMatchIterator rpmtsInitIterator_grapper(const rpmts ts, int rpmtag, const v
     return rpmtsInitIterator(ts, rpmtag, keyp, keylen);
 }
 
-rpmdbMatchIterator rpmtsInitIterator_named__grapper(const rpmts ts, int rpmtag, char * keyp, size_t keylen) {
+rpmdbMatchIterator rpmtsInitIterator_named_grapper(const rpmts ts, int rpmtag, char * keyp, size_t keylen) {
     return rpmtsInitIterator(ts, rpmtag, (const void *)keyp, keylen);
 }
 
 */
 import "C"
-import "unicode/utf8"
+import (
+	"unicode/utf8"
+
+	"github.com/aeppert/gorpm"
+)
 
 type RpmTs struct {
 	c_ts C.rpmts
@@ -50,10 +54,10 @@ func (ts *RpmTs) RpmTsInitIteratorSeq(tag RpmTag) *RpmDbMatchIterator {
 }
 
 // RpmTsInitIteratorNamed (rpmtsInitIterator in RPM) creates an interator over a transaction set
-func (ts *RpmTs) RpmTsInitIteratorNamed(tag RpmTag, key string) *RpmDbMatchIterator {
+func (ts *RpmTs) RpmTsInitIteratorNamed(key string) *RpmDbMatchIterator {
 	if utf8.RuneCountInString(key) > 0 {
 		cstr := C.CString(key)
-		crdmi := C.rpmtsInitIterator_named__grapper(ts.c_ts, C.int(tag), cstr, 0)
+		crdmi := C.rpmtsInitIterator_named_grapper(ts.c_ts, C.int(rpm.RPMTAG_NAME), cstr, 0)
 
 		if crdmi == nil {
 			return nil
