@@ -48,6 +48,6 @@ func RpmDbNextIterator(mi *RpmDbMatchIterator) *Header {
 }
 
 // Free (rpmdbFreeIterator in C)
-func (mi *RpmDbMatchIterator) Free() int {
-	return int(C.rpmdbFreeIterator(mi.c_rpmdbMatchIterator))
+func (mi *RpmDbMatchIterator) Free() {
+	C.rpmdbFreeIterator(mi.c_rpmdbMatchIterator)
 }
