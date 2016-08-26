@@ -16,6 +16,9 @@ rpmdbMatchIterator rpmtsInitIterator_grapper(const rpmts ts, int rpmtag, const v
 }
 */
 import "C"
+import (
+	"unsafe"
+)
 
 type RpmTs struct {
 	c_ts C.rpmts
@@ -33,7 +36,7 @@ func (ts *RpmTs) Free() {
 
 // RpmTsInitIterator (rpmtsInitIterator in RPM) creates an interator over a transaction set
 func (ts *RpmTs) RpmTsInitIterator(tag RpmTag, key string) *RpmDbMatchIterator {
-	crdmi := C.rpmtsInitIterator_grapper(ts.c_ts, C.int(tag), C.CString(key), 0)
+	crdmi := C.rpmtsInitIterator_grapper(ts.c_ts, C.int(tag), unsafe.Pointer(&key), 0)
 	if crdmi == nil {
 		return nil
 	}
