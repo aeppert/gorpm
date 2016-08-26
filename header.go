@@ -4,9 +4,7 @@
  * description: Mostly 1:1 bindings to the functions defined in header.h
  */
 
-
 package rpm
-
 
 /*
 #cgo LDFLAGS: -lrpm
@@ -23,31 +21,31 @@ uint64_t headerGetNumber_grapper(Header h, int tag) {
 int headerIsEntry_grapper(Header h, int tag) {
     return headerIsEntry(h, tag);
 }
- */
+*/
 import "C"
-
 
 import (
 	"errors"
 )
 
-
 type Header struct {
 	c_header C.Header
 }
-
 
 // NewHeader (headerNew in RPM) creates new (empty) header instance.
 func NewHeader() *Header {
 	return &Header{c_header: C.headerNew()}
 }
 
-
 // Free (headerFree in RPM) dereferences a header instance.
 func (hdr *Header) Free() {
 	C.headerFree(hdr.c_header)
 }
 
+// Link (headerLink in RPM)
+func (hdr *Header) Link() *Header {
+	return C.headerLink(hdr)
+}
 
 // IsSource (headerIsSource in RPM) checks if header is a source or binary
 // package header.
@@ -55,7 +53,6 @@ func (hdr *Header) Free() {
 func (hdr *Header) IsSource() bool {
 	return int(C.headerIsSource(hdr.c_header)) == 1
 }
-
 
 // GetString (headerGetString in RPM) returns a simple string tag from header.
 func (hdr *Header) GetString(tag RpmTag) (string, error) {
@@ -66,12 +63,10 @@ func (hdr *Header) GetString(tag RpmTag) (string, error) {
 	return C.GoString(c_str), nil
 }
 
-
 // GetNumber (headerGetNumber in RPM) returns a simple number tag from header.
 func (hdr *Header) GetNumber(tag RpmTag) int64 {
 	return int64(C.headerGetNumber_grapper(hdr.c_header, C.int(tag)))
 }
-
 
 // IsEntry (headerIsEntry in RPM) checks if tag exists in header.
 // Returns true on success, false on failure.

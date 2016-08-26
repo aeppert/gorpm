@@ -1,28 +1,26 @@
 /* -*- mode:go; coding:utf-8; -*-
  * author: Eugene G. Zamriy <eugene@zamriy.info>
  * created: 25.11.2013 21:51
+ * updated: 26.08.2016
  * description: Mostly 1:1 bindings to the functions defined in rpmtag.h
  */
 
-
 package rpm
-
 
 // #cgo LDFLAGS: -lrpm
 // #include <rpm/rpmlib.h>
 import "C"
 
-
 type RpmTag int
 
 const (
-	RPMTAG_NOT_FOUND         = RpmTag(C.RPMTAG_NOT_FOUND)         // unknown tag
-	RPMTAG_HEADERIMAGE       = RpmTag(C.RPMTAG_HEADERIMAGE)       // current image
-	RPMTAG_HEADERSIGNATURES  = RpmTag(C.RPMTAG_HEADERSIGNATURES)  // signatures
-	RPMTAG_HEADERIMMUTABLE   = RpmTag(C.RPMTAG_HEADERIMMUTABLE)   // original image
-	RPMTAG_HEADERREGIONS     = RpmTag(C.RPMTAG_HEADERREGIONS)     // regions
+	RPMTAG_NOT_FOUND        = RpmTag(C.RPMTAG_NOT_FOUND)        // unknown tag
+	RPMTAG_HEADERIMAGE      = RpmTag(C.RPMTAG_HEADERIMAGE)      // current image
+	RPMTAG_HEADERSIGNATURES = RpmTag(C.RPMTAG_HEADERSIGNATURES) // signatures
+	RPMTAG_HEADERIMMUTABLE  = RpmTag(C.RPMTAG_HEADERIMMUTABLE)  // original image
+	RPMTAG_HEADERREGIONS    = RpmTag(C.RPMTAG_HEADERREGIONS)    // regions
 	// s[] I18N string locales
-	RPMTAG_HEADERI18NTABLE   = RpmTag(C.RPMTAG_HEADERI18NTABLE) 
+	RPMTAG_HEADERI18NTABLE   = RpmTag(C.RPMTAG_HEADERI18NTABLE)
 	RPMTAG_SIG_BASE          = RpmTag(C.RPMTAG_SIG_BASE)
 	RPMTAG_SIGSIZE           = RpmTag(C.RPMTAG_SIGSIZE)           // i
 	RPMTAG_SIGPGP            = RpmTag(C.RPMTAG_SIGPGP)            // x
@@ -143,46 +141,59 @@ const (
 	RPMTAG_PAYLOADCOMPRESSOR = RpmTag(C.RPMTAG_PAYLOADCOMPRESSOR) // s
 	RPMTAG_PAYLOADFLAGS      = RpmTag(C.RPMTAG_PAYLOADFLAGS)      // s
 	// i transaction color when installed
-	RPMTAG_INSTALLCOLOR      = RpmTag(C.RPMTAG_INSTALLCOLOR)
-	RPMTAG_INSTALLTID        = RpmTag(C.RPMTAG_INSTALLTID)        // i
-	RPMTAG_REMOVETID         = RpmTag(C.RPMTAG_REMOVETID)         // i
-	RPMTAG_PLATFORM          = RpmTag(C.RPMTAG_PLATFORM)          // s
-	RPMTAG_FILECOLORS        = RpmTag(C.RPMTAG_FILECOLORS)        // i[]
-	RPMTAG_FILECLASS         = RpmTag(C.RPMTAG_FILECLASS)         // i[]
-	RPMTAG_CLASSDICT         = RpmTag(C.RPMTAG_CLASSDICT)         // s[]
-	RPMTAG_FILEDEPENDSX      = RpmTag(C.RPMTAG_FILEDEPENDSX)      // i[]
-	RPMTAG_FILEDEPENDSN      = RpmTag(C.RPMTAG_FILEDEPENDSN)      // i[]
-	RPMTAG_DEPENDSDICT       = RpmTag(C.RPMTAG_DEPENDSDICT)       // i[]
-	RPMTAG_SOURCEPKGID       = RpmTag(C.RPMTAG_SOURCEPKGID)       // x
-	RPMTAG_FSCONTEXTS        = RpmTag(C.RPMTAG_FSCONTEXTS)        // s[] extension
-	RPMTAG_RECONTEXTS        = RpmTag(C.RPMTAG_RECONTEXTS)        // s[] extension
+	RPMTAG_INSTALLCOLOR = RpmTag(C.RPMTAG_INSTALLCOLOR)
+	RPMTAG_INSTALLTID   = RpmTag(C.RPMTAG_INSTALLTID)   // i
+	RPMTAG_REMOVETID    = RpmTag(C.RPMTAG_REMOVETID)    // i
+	RPMTAG_PLATFORM     = RpmTag(C.RPMTAG_PLATFORM)     // s
+	RPMTAG_FILECOLORS   = RpmTag(C.RPMTAG_FILECOLORS)   // i[]
+	RPMTAG_FILECLASS    = RpmTag(C.RPMTAG_FILECLASS)    // i[]
+	RPMTAG_CLASSDICT    = RpmTag(C.RPMTAG_CLASSDICT)    // s[]
+	RPMTAG_FILEDEPENDSX = RpmTag(C.RPMTAG_FILEDEPENDSX) // i[]
+	RPMTAG_FILEDEPENDSN = RpmTag(C.RPMTAG_FILEDEPENDSN) // i[]
+	RPMTAG_DEPENDSDICT  = RpmTag(C.RPMTAG_DEPENDSDICT)  // i[]
+	RPMTAG_SOURCEPKGID  = RpmTag(C.RPMTAG_SOURCEPKGID)  // x
+	RPMTAG_FSCONTEXTS   = RpmTag(C.RPMTAG_FSCONTEXTS)   // s[] extension
+	RPMTAG_RECONTEXTS   = RpmTag(C.RPMTAG_RECONTEXTS)   // s[] extension
 	// s[] selinux *.te policy file
-	RPMTAG_POLICIES          = RpmTag(C.RPMTAG_POLICIES)
-	RPMTAG_PRETRANS          = RpmTag(C.RPMTAG_PRETRANS)          // s
-	RPMTAG_POSTTRANS         = RpmTag(C.RPMTAG_POSTTRANS)         // s
-	RPMTAG_PRETRANSPROG      = RpmTag(C.RPMTAG_PRETRANSPROG)      // s[]
-	RPMTAG_POSTTRANSPROG     = RpmTag(C.RPMTAG_POSTTRANSPROG)     // s[]
-	RPMTAG_DISTTAG           = RpmTag(C.RPMTAG_DISTTAG)           // s
-	RPMTAG_DBINSTANCE        = RpmTag(C.RPMTAG_DBINSTANCE)        // i extension
-	RPMTAG_NVRA              = RpmTag(C.RPMTAG_NVRA)              // s extension
-	RPMTAG_FILENAMES         = RpmTag(C.RPMTAG_FILENAMES)         // s[] extension
-	RPMTAG_FILEPROVIDE       = RpmTag(C.RPMTAG_FILEPROVIDE)       // s[] extension
-	RPMTAG_FILEREQUIRE       = RpmTag(C.RPMTAG_FILEREQUIRE)       // s[] extension
-	RPMTAG_TRIGGERCONDS      = RpmTag(C.RPMTAG_TRIGGERCONDS)      // s[] extension
-	RPMTAG_TRIGGERTYPE       = RpmTag(C.RPMTAG_TRIGGERTYPE)       // s[] extension
-	RPMTAG_ORIGFILENAMES     = RpmTag(C.RPMTAG_ORIGFILENAMES)     // s[] extension
-	RPMTAG_LONGFILESIZES     = RpmTag(C.RPMTAG_LONGFILESIZES)     // l[]
-	RPMTAG_LONGSIZE          = RpmTag(C.RPMTAG_LONGSIZE)          // l
-	RPMTAG_FILECAPS          = RpmTag(C.RPMTAG_FILECAPS)          // s[]
+	RPMTAG_POLICIES      = RpmTag(C.RPMTAG_POLICIES)
+	RPMTAG_PRETRANS      = RpmTag(C.RPMTAG_PRETRANS)      // s
+	RPMTAG_POSTTRANS     = RpmTag(C.RPMTAG_POSTTRANS)     // s
+	RPMTAG_PRETRANSPROG  = RpmTag(C.RPMTAG_PRETRANSPROG)  // s[]
+	RPMTAG_POSTTRANSPROG = RpmTag(C.RPMTAG_POSTTRANSPROG) // s[]
+	RPMTAG_DISTTAG       = RpmTag(C.RPMTAG_DISTTAG)       // s
+	RPMTAG_DBINSTANCE    = RpmTag(C.RPMTAG_DBINSTANCE)    // i extension
+	RPMTAG_NVRA          = RpmTag(C.RPMTAG_NVRA)          // s extension
+	RPMTAG_FILENAMES     = RpmTag(C.RPMTAG_FILENAMES)     // s[] extension
+	RPMTAG_FILEPROVIDE   = RpmTag(C.RPMTAG_FILEPROVIDE)   // s[] extension
+	RPMTAG_FILEREQUIRE   = RpmTag(C.RPMTAG_FILEREQUIRE)   // s[] extension
+	RPMTAG_TRIGGERCONDS  = RpmTag(C.RPMTAG_TRIGGERCONDS)  // s[] extension
+	RPMTAG_TRIGGERTYPE   = RpmTag(C.RPMTAG_TRIGGERTYPE)   // s[] extension
+	RPMTAG_ORIGFILENAMES = RpmTag(C.RPMTAG_ORIGFILENAMES) // s[] extension
+	RPMTAG_LONGFILESIZES = RpmTag(C.RPMTAG_LONGFILESIZES) // l[]
+	RPMTAG_LONGSIZE      = RpmTag(C.RPMTAG_LONGSIZE)      // l
+	RPMTAG_FILECAPS      = RpmTag(C.RPMTAG_FILECAPS)      // s[]
 	// i file digest algorithm
-	RPMTAG_FILEDIGESTALGO    = RpmTag(C.RPMTAG_FILEDIGESTALGO)
-	RPMTAG_BUGURL            = RpmTag(C.RPMTAG_BUGURL)            // s
-	RPMTAG_EVR               = RpmTag(C.RPMTAG_EVR)               // s extension
-	RPMTAG_NVR               = RpmTag(C.RPMTAG_NVR)               // s extension
-	RPMTAG_NEVR              = RpmTag(C.RPMTAG_NEVR)              // s extension
-	RPMTAG_NEVRA             = RpmTag(C.RPMTAG_NEVRA)             // s extension
-	RPMTAG_HEADERCOLOR       = RpmTag(C.RPMTAG_HEADERCOLOR)       // i extension
-	RPMTAG_VERBOSE           = RpmTag(C.RPMTAG_VERBOSE)           // i extension
-	RPMTAG_EPOCHNUM          = RpmTag(C.RPMTAG_EPOCHNUM)          // i extension 
+	RPMTAG_FILEDIGESTALGO = RpmTag(C.RPMTAG_FILEDIGESTALGO)
+	RPMTAG_BUGURL         = RpmTag(C.RPMTAG_BUGURL)      // s
+	RPMTAG_EVR            = RpmTag(C.RPMTAG_EVR)         // s extension
+	RPMTAG_NVR            = RpmTag(C.RPMTAG_NVR)         // s extension
+	RPMTAG_NEVR           = RpmTag(C.RPMTAG_NEVR)        // s extension
+	RPMTAG_NEVRA          = RpmTag(C.RPMTAG_NEVRA)       // s extension
+	RPMTAG_HEADERCOLOR    = RpmTag(C.RPMTAG_HEADERCOLOR) // i extension
+	RPMTAG_VERBOSE        = RpmTag(C.RPMTAG_VERBOSE)     // i extension
+	RPMTAG_EPOCHNUM       = RpmTag(C.RPMTAG_EPOCHNUM)    // i extension
 )
 
+type RpmDbiTag int
+
+const (
+	RPMDBI_PACKAGES  = RpmDbiTag(C.RPMDBI_PACKAGES)  // Installed package headers.
+	RPMDBI_DEPENDS   = RpmDbiTag(C.RPMDBI_DEPENDS)   // Dependency resolution cache.
+	RPMDBI_LABEL     = RpmDbiTag(C.RPMDBI_LABEL)     // Fingerprint search marker.
+	RPMDBI_ADDED     = RpmDbiTag(C.RPMDBI_ADDED)     // Added package headers.
+	RPMDBI_REMOVED   = RpmDbiTag(C.RPMDBI_REMOVED)   // Removed package headers.
+	RPMDBI_AVAILABLE = RpmDbiTag(C.RPMDBI_AVAILABLE) // Available package headers.
+	RPMDBI_HDLIST    = RpmDbiTag(C.RPMDBI_HDLIST)    // (rpmgi) Header list.
+	RPMDBI_ARGLIST   = RpmDbiTag(C.RPMDBI_ARGLIST)   // (rpmgi) Argument list.
+	RPMDBI_FTSWALK   = RpmDbiTag(C.RPMDBI_FTSWALK)   // (rpmgi) File tree  walk.
+)
