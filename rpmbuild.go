@@ -12,7 +12,6 @@ package rpm
 #include <rpm/rpmspec.h>
 */
 import "C"
-import "unsafe"
 
 type RpmBuildFlag uint32
 
@@ -33,29 +32,29 @@ const (
 	//	RPMBUILD_FILE_FILE     = RpmBuildFlag(C.RPMBUILD_FILE_FILE)     // rpmSpecPkgGetSection: %files -f
 	//	RPMBUILD_FILE_LIST     = RpmBuildFlag(C.RPMBUILD_FILE_LIST)     // rpmSpecPkgGetSection: %files
 	//	RPMBUILD_POLICY        = RpmBuildFlag(C.RPMBUILD_POLICY)        // rpmSpecPkgGetSection: %policy
-	RPMBUILD_NOBUILD = RpmBuildFlag(C.RPMBUILD_NOBUILD) // don't execute or package
+	// RPMBUILD_NOBUILD = RpmBuildFlag(C.RPMBUILD_NOBUILD) // don't execute or package
 )
 
-type Spec struct {
-	rpmSpec C.rpmSpec
-}
+// type Spec struct {
+// 	rpmSpec C.rpmSpec
+// }
 
 // SpecParse (rpmSpecParse in RPM) parses spec file into Spec structure.
-func SpecParse(specFile string, specFlags RpmSpecFlag) *Spec {
-	cSpecFile := C.CString(specFile)
-	defer C.free(unsafe.Pointer(cSpecFile))
-	rpmSpec := C.rpmSpecParse(cSpecFile, C.rpmSpecFlags(specFlags), nil)
-	return &Spec{rpmSpec: rpmSpec}
-}
+// func SpecParse(specFile string, specFlags RpmSpecFlag) *Spec {
+// 	cSpecFile := C.CString(specFile)
+// 	defer C.free(unsafe.Pointer(cSpecFile))
+// 	rpmSpec := C.rpmSpecParse(cSpecFile, C.rpmSpecFlags(specFlags), nil)
+// 	return &Spec{rpmSpec: rpmSpec}
+// }
 
-// Free (rpmSpecFree in RPM) destroys Spec structure.
-func (spec *Spec) Free() {
-	C.rpmSpecFree(spec.rpmSpec)
-}
+// // Free (rpmSpecFree in RPM) destroys Spec structure.
+// func (spec *Spec) Free() {
+// 	C.rpmSpecFree(spec.rpmSpec)
+// }
 
 // SourceHeader (rpmSpecSourceHeader in RPM) returns the header of the src-RPM
 // that would be built from the spec file.
-func (spec *Spec) SourceHeader() *Header {
-	cHeader := C.rpmSpecSourceHeader(spec.rpmSpec)
-	return &Header{c_header: cHeader}
-}
+// func (spec *Spec) SourceHeader() *Header {
+// 	cHeader := C.rpmSpecSourceHeader(spec.rpmSpec)
+// 	return &Header{c_header: cHeader}
+// }
