@@ -6,9 +6,15 @@
 
 package rpm
 
-// #cgo LDFLAGS: -lrpm
-// #include <rpm/rpmlib.h>
-// #include <rpm/rpmts.h>
+/*
+#cgo LDFLAGS: -lrpm
+#include <rpm/rpmlib.h>
+#include <rpm/rpmts.h>
+
+rpmdbMatchIterator rpmtsInitIterator_grapper(const rpmts ts, int rpmtag, const void * keyp, size_t keylen) {
+    return rpmtsInitIterator(ts, rpmtag, keyp, keylen);
+}
+*/
 import "C"
 
 type RpmTs struct {
@@ -27,7 +33,7 @@ func (ts *RpmTs) Free() {
 
 // RpmTsInitIterator (rpmtsInitIterator in RPM) creates an interator over a transaction set
 func (ts *RpmTs) RpmTsInitIterator(tag RpmTag) *RpmDbMatchIterator {
-	crdmi := C.rpmtsInitIterator(ts.c_ts, C.int(tag), nil, 0)
+	crdmi := C.rpmtsInitIterator_grapper(ts.c_ts, C.int(tag), nil, 0)
 	if crdmi == nil {
 		return nil
 	}
