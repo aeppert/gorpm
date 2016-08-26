@@ -44,7 +44,7 @@ func (hdr *Header) Free() {
 
 // Link (headerLink in RPM)
 func (hdr *Header) Link() *Header {
-	return C.headerLink(hdr.c_header)
+	return &Header{c_header: C.headerLink(hdr.c_header)}
 }
 
 // IsSource (headerIsSource in RPM) checks if header is a source or binary
