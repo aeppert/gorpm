@@ -23,8 +23,6 @@ rpmdbMatchIterator rpmtsInitIterator_named_grapper(const rpmts ts, int rpmtag, c
 import "C"
 import (
 	"unicode/utf8"
-
-	"github.com/aeppert/gorpm"
 )
 
 type RpmTs struct {
