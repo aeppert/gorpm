@@ -19,18 +19,18 @@ type RpmMireMode uint32
 
 const (
 	RPMMIRE_DEFAULT = RpmMireMode(C.RPMMIRE_DEFAULT) // !< regex with \., .* and ^...$ added
-	RPMMIRE_STRCMP  = RpmMireMode(RPMMIRE_STRCMP)    // !< strings  using strcmp(3) */
-	RPMMIRE_REGEX   = RpmMireMode(RPMMIRE_REGEX)     // !< regex(7) patterns through regcomp(3)
-	RPMMIRE_GLOB    = RpmMireMode(RPMMIRE_GLOB)      // !< glob(7) patterns through fnmatch(3)
+	RPMMIRE_STRCMP  = RpmMireMode(C.RPMMIRE_STRCMP)  // !< strings  using strcmp(3) */
+	RPMMIRE_REGEX   = RpmMireMode(C.RPMMIRE_REGEX)   // !< regex(7) patterns through regcomp(3)
+	RPMMIRE_GLOB    = RpmMireMode(C.RPMMIRE_GLOB)    // !< glob(7) patterns through fnmatch(3)
 )
 
 type RpmDbOpX uint32
 
 const (
-	RPMDB_OP_DBGET = RpmDbOpX(RPMDB_OP_DBGET)
-	RPMDB_OP_DBPUT = RpmDbOpX(RPMDB_OP_DBPUT)
-	RPMDB_OP_DBDEL = RpmDbOpX(RPMDB_OP_DBDEL)
-	RPMDB_OP_MAX   = RpmDbOpX(RPMDB_OP_MAX)
+	RPMDB_OP_DBGET = RpmDbOpX(C.RPMDB_OP_DBGET)
+	RPMDB_OP_DBPUT = RpmDbOpX(C.RPMDB_OP_DBPUT)
+	RPMDB_OP_DBDEL = RpmDbOpX(C.RPMDB_OP_DBDEL)
+	RPMDB_OP_MAX   = RpmDbOpX(C.RPMDB_OP_MAX)
 )
 
 type RpmDbMatchIterator struct {
