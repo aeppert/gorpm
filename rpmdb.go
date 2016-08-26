@@ -38,7 +38,7 @@ type RpmDbMatchIterator struct {
 }
 
 // RpmDbNextIterator (rpmdbNextIterator in C)
-func RpmDbNextIterator(mi *RpmDbMatchIterator) *Header {
+func (mi *RpmDbMatchIterator) RpmDbNextIterator() *Header {
 	c_header := C.rpmdbNextIterator(mi.c_rpmdbMatchIterator)
 	if c_header == nil {
 		return nil
