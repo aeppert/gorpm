@@ -13,7 +13,7 @@ func main() {
 	ts := rpm.RpmTsCreate()
 	rpm.ReadConfigFiles(nil, nil)
 
-	mi := ts.RpmTsInitIterator(rpm.RPMTAG_DBI_PACKAGES)
+	mi := ts.RpmTsInitIteratorSeq(rpm.RPMTAG_DBI_PACKAGES)
 
 	hdr := mi.RpmDbNextIterator()
 	for hdr != nil {
