@@ -55,7 +55,7 @@ func (ts *RpmTs) RpmTsInitIteratorSeq(tag RpmTag) *RpmDbMatchIterator {
 func (ts *RpmTs) RpmTsInitIteratorNamed(key string) *RpmDbMatchIterator {
 	if utf8.RuneCountInString(key) > 0 {
 		cstr := C.CString(key)
-		crdmi := C.rpmtsInitIterator_named_grapper(ts.c_ts, C.int(rpm.RPMTAG_NAME), cstr, 0)
+		crdmi := C.rpmtsInitIterator_named_grapper(ts.c_ts, C.int(RPMTAG_NAME), cstr, 0)
 
 		if crdmi == nil {
 			return nil
