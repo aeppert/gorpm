@@ -188,13 +188,19 @@ const (
 type RpmDbiTag int
 
 const (
-	RPMDBI_PACKAGES  = RpmDbiTag(C.RPMDBI_PACKAGES)  // Installed package headers.
-	RPMDBI_DEPENDS   = RpmDbiTag(C.RPMDBI_DEPENDS)   // Dependency resolution cache.
-	RPMDBI_LABEL     = RpmDbiTag(C.RPMDBI_LABEL)     // Fingerprint search marker.
-	RPMDBI_ADDED     = RpmDbiTag(C.RPMDBI_ADDED)     // Added package headers.
-	RPMDBI_REMOVED   = RpmDbiTag(C.RPMDBI_REMOVED)   // Removed package headers.
-	RPMDBI_AVAILABLE = RpmDbiTag(C.RPMDBI_AVAILABLE) // Available package headers.
-	RPMDBI_HDLIST    = RpmDbiTag(C.RPMDBI_HDLIST)    // (rpmgi) Header list.
-	RPMDBI_ARGLIST   = RpmDbiTag(C.RPMDBI_ARGLIST)   // (rpmgi) Argument list.
-	RPMDBI_FTSWALK   = RpmDbiTag(C.RPMDBI_FTSWALK)   // (rpmgi) File tree  walk.
+	RPMDBI_PACKAGES      = RpmDbiTag(C.RPMDBI_PACKAGES) /* Installed package headers. */
+	RPMDBI_LABEL         = RpmDbiTag(C.RPMDBI_LABEL)    /* NEVRA label pseudo index */
+	RPMDBI_NAME          = RpmDbiTag(C.RPMDBI_NAME)
+	RPMDBI_BASENAMES     = RpmDbiTag(C.RPMTAG_BASENAMES)
+	RPMDBI_GROUP         = RpmDbiTag(C.RPMTAG_GROUP)
+	RPMDBI_REQUIRENAME   = RpmDbiTag(C.RPMTAG_REQUIRENAME)
+	RPMDBI_PROVIDENAME   = RpmDbiTag(C.RPMTAG_PROVIDENAME)
+	RPMDBI_CONFLICTNAME  = RpmDbiTag(C.RPMTAG_CONFLICTNAME)
+	RPMDBI_OBSOLETENAME  = RpmDbiTag(C.RPMTAG_OBSOLETENAME)
+	RPMDBI_TRIGGERNAME   = RpmDbiTag(C.RPMTAG_TRIGGERNAME)
+	RPMDBI_DIRNAMES      = RpmDbiTag(C.RPMTAG_DIRNAMES)
+	RPMDBI_INSTALLTID    = RpmDbiTag(C.RPMTAG_INSTALLTID)
+	RPMDBI_SIGMD5        = RpmDbiTag(C.RPMTAG_SIGMD5)
+	RPMDBI_SHA1HEADER    = RpmDbiTag(C.RPMTAG_SHA1HEADER)
+	RPMDBI_INSTFILENAMES = RpmDbiTag(C.RPMTAG_INSTFILENAMES)
 )
