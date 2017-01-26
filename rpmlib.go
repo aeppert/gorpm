@@ -4,7 +4,6 @@
  * description: Mostly 1:1 bindings to the functions defined in rpmlib.h.
  */
 
-
 // Go bindings for RPM library.
 package rpm
 
@@ -16,7 +15,6 @@ import (
 	"errors"
 	"unsafe"
 )
-
 
 // EVR contains RPM package Epoch, Version and Release
 type EVR struct {
@@ -47,6 +45,10 @@ func ReadConfigFiles(file *string, target *string) (int, error) {
 	return code, nil
 }
 
+// FreeRpmRc (rpmFreeRpmrc in RPM)
+func FreeRpmRc() {
+	C.rpmFreeRpmrc()
+}
 
 // ReadPackageFile (rpmReadPackageFile in RPM) fills package header with data
 // from file handle, verifying digests/signatures. Note that file name argument
@@ -62,7 +64,6 @@ func ReadPackageFile(ts *RpmTs, fd *FD_t, hdr *Header) (RpmRc, error) {
 	}
 	return status, nil
 }
-
 
 // LabelCompare compares two packages EVR's.
 // Returns 1 if first package is "newer", 0 if equal, -1 if second package is newer.
